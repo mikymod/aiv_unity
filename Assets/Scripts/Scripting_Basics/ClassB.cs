@@ -80,5 +80,8 @@ public class ClassB: ClassA
     //    return new ClassB((int)life, startPos, powerUp);
     //}
 
-
+    public ClassB(int startLife, bool startPowerUp, int startLevel) : base(startLife * startLevel)
+    {
+        powerUp = startPowerUp;
+    }
 }
