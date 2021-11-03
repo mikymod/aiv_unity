@@ -8,9 +8,22 @@ public class EnemyFactory : MonoBehaviour
     public int elfNum = 0;
     private List<EnemyType> enemies;
 
+    private void Awake()
+    {
+        enemies = new List<EnemyType>();    
+    }
+
     void Start()
     {
-        enemies = new List<EnemyType>();
+        for (int i = 0; i < ogreNum; i++)
+        {
+            enemies.Add(new Ogre());
+        }
+
+        for (int i = 0; i < elfNum; i++)
+        {
+            enemies.Add(new Elf());
+        }
 
         foreach (var enemy in enemies)
         {
