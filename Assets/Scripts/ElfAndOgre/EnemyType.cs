@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyType
 {
-    protected float experience;
+    public float experience;
     protected int age;
     protected float power;
 

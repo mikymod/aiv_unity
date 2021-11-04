@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +34,6 @@ public class EnemyFactory : MonoBehaviour
 
         elf.CopyExperienceFrom<Ogre>(ogre);
 
-        Debug.Log($"ogre exp: {ogre.GetExperience()}, elf exp: {elf.GetExperience()}");
+        Debug.Log($"ogre exp: {ogre.experience}, elf exp: {elf.experience}");
     }
 }
