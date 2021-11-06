@@ -23,26 +23,33 @@ public class SierpinskiIterativeCreator : MonoBehaviour
 
     private void GenerateTriangle(Transform A, Transform B, Transform C)
     {
-        var ABGO = Instantiate(middlePointPrefab, (B.position + A.position) * 0.5f + Vector3.up * numIterations * offsetY, Quaternion.identity);
-        ABGO.GetComponent<StayBetween2Objs>().SetPoints(A, B, numIterations * offsetY);
-        ABGO.GetComponent<MeshRenderer>().material = materials[numIterations % materials.Length];
+        var point1 = A;
+        var point2 = B;
+        var point3 = C;
 
-        var BCGO = Instantiate(middlePointPrefab, (C.position + B.position) * 0.5f + Vector3.up * numIterations * offsetY, Quaternion.identity);
-        BCGO.GetComponent<StayBetween2Objs>().SetPoints(B, C, numIterations * offsetY);
-        BCGO.GetComponent<MeshRenderer>().material = materials[numIterations % materials.Length];
-
-        var CAGO = Instantiate(middlePointPrefab, (A.position + C.position) * 0.5f + Vector3.up * numIterations * offsetY, Quaternion.identity);
-        CAGO.GetComponent<StayBetween2Objs>().SetPoints(C, A, numIterations * offsetY);
-        CAGO.GetComponent<MeshRenderer>().material = materials[numIterations % materials.Length];
-
-        var DGO = Instantiate(centerPointPrefab, (ABGO.transform.position + BCGO.transform.position + CAGO.transform.position) / 3f + Vector3.up * numIterations * offsetY, Quaternion.identity);
-        DGO.GetComponent<StayOnCOM>().SetPoints(ABGO.transform, BCGO.transform, CAGO.transform, numIterations * offsetY);
-
-        numIterations++;
-
-        if (numIterations < iterations)
+        for (int i = 0; i < iterations; i++)
         {
-            GenerateTriangle(ABGO.transform, BCGO.transform, CAGO.transform);
+            var m1 = GenereteVertex(point1, point2, i);
+            var m2 = GenereteVertex(point2, point3, i);
+            var m3 = GenereteVertex(point3, point1, i);
+            
+            point1 = m1;
+            point2 = m2;
+            point3 = m3;
         }
+    }
+
+    private Transform GenereteVertex(Transform p1, Transform p2, int iteration)
+    {
+        var position = (p2.position + p1.position) * 0.5f;
+        if (iteration != 0)
+        {
+            position += new Vector3(0, offsetY, 0);
+        }
+
+        var middleGO = Instantiate(middlePointPrefab, position, Quaternion.identity);
+        middleGO.GetComponent<StayBetween2Objs>().SetPoints(p1, p2, iteration != 0 ? offsetY : 0);
+        middleGO.GetComponent<MeshRenderer>().material = materials[iteration % materials.Length];
+        return middleGO.transform;
     }
 }
