@@ -58,7 +58,14 @@ public class CircleInstantiator : MonoBehaviour
             }
             else
             {
-                go.transform.position = GetNextCirclePositon();
+                if (outsideUniform)
+                {
+                    go.transform.position = GetNextUniformCirclePosition(i);
+                }
+                else
+                {
+                    go.transform.position = GetNextRandomCirclePositon();
+                }
             }
 
             if (randomRotation)
@@ -100,17 +107,21 @@ public class CircleInstantiator : MonoBehaviour
         }
     }
 
-    private Vector3 GetNextCirclePositon()
+    private Vector3 GetNextRandomCirclePositon()
     {
-        if (outsideUniform)
-        {
-            // TODO:
-        }
+        float angle = Random.Range(0f, 360f);
+        var rad = angle * Mathf.PI / 180.0f;
+        var X = parent.transform.position.x + Mathf.Cos(rad) * radius;
+        var Y = parent.transform.position.y + Mathf.Sin(rad) * radius;
+        return new Vector3(X, Y, 0);
+    }
 
-        var rand = Random.Range(0f, 360f);
-        var rad = rand * Mathf.PI / 180.0f;
-        var X = parent.transform.position.x + Mathf.Cos(rad)*radius;
-        var Y = parent.transform.position.y + Mathf.Sin(rad)*radius;
+    private Vector3 GetNextUniformCirclePosition(int objectIndex)
+    {
+        float deltaAngle = 360f / numObjects;
+        var rad = deltaAngle * objectIndex * Mathf.PI / 180.0f;
+        var X = parent.transform.position.x + Mathf.Cos(rad) * radius;
+        var Y = parent.transform.position.y + Mathf.Sin(rad) * radius;
         return new Vector3(X, Y, 0);
     }
 }
