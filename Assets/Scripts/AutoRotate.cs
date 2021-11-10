@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AutoRotate : MonoBehaviour {
 	public bool performUpdate;
-	public float angle;
+	public Vector3 angle;
 
 	void Update () {
 		if (performUpdate) {
-			transform.Rotate (0, angle * Time.deltaTime, 0);
+			transform.Rotate (angle.x * Time.deltaTime, angle.y * Time.deltaTime, angle.z * Time.deltaTime);
 		}
 	}
 }

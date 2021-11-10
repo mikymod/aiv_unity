@@ -23,11 +23,11 @@ public class autoRotateObjs : MonoBehaviour {
 
 		//rotate cubeG using its AutoRotate script component (the public variable here is a pointer to a script)
 		cubeG_autoRotateScript.performUpdate = performUpdateOnCubes;
-		cubeG_autoRotateScript.angle = angle;
+		// cubeG_autoRotateScript.angle = angle;
 
 		//rotate cubeB using its AutoRotate script component (the public variable is a pointer to a GameObject)
 		cubeB.GetComponent<AutoRotate>().performUpdate = performUpdateOnCubes;
-		cubeB.GetComponent<AutoRotate>().angle = angle;
+		// cubeB.GetComponent<AutoRotate>().angle = angle;
 
 		//rotate beautifulNameGO using its Transform component (beautifulNameGO is not hard-linked - found with name)
 		beautifulNameGO.transform.Rotate (0, angle * Time.deltaTime, 0);
