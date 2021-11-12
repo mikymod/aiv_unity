@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[ExecuteInEditMode]
+// [ExecuteInEditMode]
 public class Instantiator2D : MonoBehaviour
 {
     public GameObject prefab;
@@ -12,6 +12,16 @@ public class Instantiator2D : MonoBehaviour
     public float offsetX, offsetZ;
 
     public bool instantiate, destroyAll, instantiatePrefabs;
+
+    private void Start()
+    {
+        InstantiateN();    
+    }
+
+    private void OnDestroy()
+    {
+        // DestroyAll();    
+    }
 
     void Update()
     {
@@ -38,7 +48,7 @@ public class Instantiator2D : MonoBehaviour
 
         for (int x = 0; x < numX; x++)
         {
-            currPosition = new Vector3(offsetX * x, currPosition.y, 0f);
+            currPosition = new Vector3(offsetX * x, currPosition.y, 0);
             
             for (int z = 0; z < numZ; z++)
             {
@@ -47,13 +57,13 @@ public class Instantiator2D : MonoBehaviour
                 if (instantiatePrefabs)
                 {
                     var go = (GameObject)PrefabUtility.InstantiatePrefab(prefab, parent);
-                    go.transform.position = currPosition;
+                    go.transform.localPosition = currPosition;
                 }
                 else
                 {
-                    var go = Instantiate(prefab, currPosition, Quaternion.identity, parent);
+                    var go = Instantiate(prefab, parent);
+                    go.transform.localPosition = currPosition;
                 }
-
             }
         }
     }
