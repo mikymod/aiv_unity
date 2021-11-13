@@ -3476,7 +3476,7 @@ MonoBehaviour:
   FromRot_OR_LockAxis: 0
   rotateTowardsInc: 100
   lockAxis: 1
-  smooth: 1
+  smooth: 0
 --- !u!1 &1616073804
 GameObject:
   m_ObjectHideFlags: 0
