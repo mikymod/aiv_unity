@@ -7,6 +7,7 @@ public class CalculateForce : MonoBehaviour
 {
     public float mass = 30.0f;
 
+    public Transform[] Wheels;
 
     void Update()
     {
@@ -20,5 +21,7 @@ public class CalculateForce : MonoBehaviour
 
         // transform.Translate(proj * Time.deltaTime);
         transform.position += proj * Time.deltaTime;
+
+        // TODO: Rotate wheels
     }
 }
