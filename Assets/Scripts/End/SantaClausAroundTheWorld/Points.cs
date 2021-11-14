@@ -8,6 +8,16 @@ public class Points : MonoBehaviour
     int IMGUIx, IMGUIy;
     int IMGUIh = 20;
 
+    private void OnEnable()
+    {
+        Collectable.OnPickUp += AddPoint;    
+    }
+
+    private void OnDisable()
+    {
+        Collectable.OnPickUp -= AddPoint;    
+    }
+
     public void AddPoint(int val)
     {
         points += val;
