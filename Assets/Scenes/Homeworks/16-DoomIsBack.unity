@@ -828,7 +828,6 @@ GameObject:
   m_Component:
   - component: {fileID: 369053208}
   - component: {fileID: 369053209}
-  - component: {fileID: 369053207}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -836,23 +835,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &369053207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369053206}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf7c320edf5f32348b20e850631a68b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 678974336}
-  FromRot_OR_LockAxis: 0
-  rotateTowardsInc: 100
-  lockAxis: 1
-  smooth: 0
 --- !u!4 &369053208
 Transform:
   m_ObjectHideFlags: 0

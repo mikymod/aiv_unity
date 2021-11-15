@@ -53,17 +53,17 @@ public class SpriteSelector : MonoBehaviour
         else if (projForwardAngle >= 0 + angleShift && projForwardAngle < 45 + angleShift)
         {
             // 1
-            currentSprite = sprites[7];
+            currentSprite = sprites[1];
         }
         else if (projForwardAngle >= 315 + angleShift || projForwardAngle < 0 + angleShift)
         {
             // 2
-            currentSprite = sprites[6];
+            currentSprite = sprites[2];
         }
         else if (projForwardAngle >= 270 + angleShift && projForwardAngle < 315 + angleShift)
         {
             // 3
-            currentSprite = sprites[5];
+            currentSprite = sprites[3];
         }
         else if (projForwardAngle >= 225 + angleShift && projForwardAngle < 270 + angleShift)
         {
@@ -73,17 +73,17 @@ public class SpriteSelector : MonoBehaviour
         else if (projForwardAngle >= 180 + angleShift && projForwardAngle < 225 + angleShift)
         {
             // 5
-            currentSprite = sprites[3];
+            currentSprite = sprites[5];
         }
         else if (projForwardAngle >= 135 + angleShift && projForwardAngle < 180 + angleShift)
         {
             // 6
-            currentSprite = sprites[2];
+            currentSprite = sprites[6];
         }
         else if (projForwardAngle >= 90 + angleShift && projForwardAngle < 135 + angleShift)
         {
             // 7
-            currentSprite = sprites[1];
+            currentSprite = sprites[7];
         }
 
         currentSprite.SetActive(true);
