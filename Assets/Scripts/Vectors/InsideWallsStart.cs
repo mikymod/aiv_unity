@@ -10,6 +10,7 @@ public class InsideWallsStart : MonoBehaviour
 
     Plane plane;
     Camera cam;
+    private bool canMove;
 
     private void Start()
     {
@@ -22,6 +23,11 @@ public class InsideWallsStart : MonoBehaviour
 
         //Fill in wallsNormals with the first normal in the array GetComponent<MeshFilter>().mesh.normals
         //i.e. wallsNormals[0] will contain the first normal of the Quad Walls[0]
+        wallsNormals = new Vector3[Walls.Length];
+        for (int i = 0; i < Walls.Length; i++)
+        {
+            wallsNormals[i] = Walls[i].transform.TransformDirection(Walls[i].GetComponent<MeshFilter>().mesh.normals[0]);
+        }
     }
 
     void Update()
@@ -36,10 +42,30 @@ public class InsideWallsStart : MonoBehaviour
                 Vector3 hitPoint = ray.GetPoint(t);
                 Vector3 localHPoint = Quad.transform.InverseTransformPoint(hitPoint);
 
+                canMove = true;
+
                 //Check if the hitPoint is inside the walls using Dot product between C and N, where
                 //  - C is the vector from the hitPoint to the Wall
                 //  - N is the wall normal
                 //If the hitPoint is inside the wall, then move the redSphere
+                for (int i = 0; i < Walls.Length; i++)
+                {
+                    var normal = wallsNormals[i];
+                    var proj = Vector3.Dot(normal.normalized, (hitPoint - Walls[i].transform.position).normalized);
+                    
+                    if (proj < 0f)
+                    {
+                        canMove = false;
+                        break;
+                    }
+
+                    Debug.Log(proj);
+                }
+
+                if (canMove)
+                {
+                    HitPointObj.transform.position = hitPoint;
+                }
             }
         }
     }
