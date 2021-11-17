@@ -26,10 +26,15 @@ public static class VectorUtils
         t_w = 0;
 
         //Calculate vector u
+        var u = uEnd - uBegin;
         //Calculate vector v
+        var v = vEnd - uBegin;
         //Calculate vector n
+        var n = Vector3.Cross(u, v);
         //Calculate vector w
+        var w = wEnd - wBegin;
         //Calculate t_w
+        t_w = -Vector3.Dot(n, (wBegin - uBegin)) / Vector3.Dot(n, w);
     }
 
     public static Vector3[] GetLinePoints(Vector3 StartPoint, Vector3 EndPoint, float FromRange, float ToRange, int PointsNum)
