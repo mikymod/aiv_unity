@@ -267,7 +267,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6637044933160553526, guid: 9e02b78b59289884a90e52e50c63acbb, type: 3}
   parent: {fileID: 1545928756}
-  numObjects: 10
+  numObjects: 20
   inside: 1
   outsideUniform: 0
   randomRotation: 0

@@ -52,6 +52,8 @@ public class InsideWallsStart : MonoBehaviour
                 {
                     var normal = wallsNormals[i];
                     var proj = Vector3.Dot(normal.normalized, (hitPoint - Walls[i].transform.position).normalized);
+                    Debug.DrawLine(hitPoint, Walls[i].transform.position, Color.red);
+                    Debug.DrawLine(Walls[i].transform.position, Walls[i].transform.position + normal, Color.green);
                     
                     if (proj < 0f)
                     {
