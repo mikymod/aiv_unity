@@ -34,21 +34,12 @@ public class XRayCaster : MonoBehaviour
         {
             if (useNormal)
             {
-                var go = Instantiate(prefab, hit.point, Quaternion.Euler(hit.normal.x, hit.normal.y, hit.normal.z));
+                Instantiate(prefab, hit.point, Quaternion.Euler(hit.normal.x, hit.normal.y, hit.normal.z));
             }
             else
             {
-                var go = Instantiate(prefab, hit.point, Quaternion.identity);
-                // go.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);            
+                Instantiate(prefab, hit.point, Quaternion.identity);
             }
         }
-        // var ray = Camera.main.ScreenPointToRay(new Vector2(10f, 10f));
-        // Debug.DrawRay(ray.origin, ray.direction, Color.blue, 60);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
