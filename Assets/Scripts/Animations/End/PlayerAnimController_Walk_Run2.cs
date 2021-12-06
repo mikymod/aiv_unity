@@ -25,21 +25,19 @@ public class PlayerAnimController_Walk_Run2 : MonoBehaviour {
             animator.SetFloat(paramNameTranslate, z);
         if (sendRotateParam)
             animator.SetFloat(paramNameRotate, x);
-    
-        transform.Rotate(0, x * rotationBoost, 0);
     }
 
-    // private void OnAnimatorMove()
-    // {
-    //     if (translateRoot)
-    //         transform.Translate(0, 0, z * translateBoost);
-    //     else
-    //         transform.position = animator.rootPosition;
+    private void OnAnimatorMove()
+    {
+        if (translateRoot)
+            transform.Translate(0, 0, z * translateBoost);
+        else
+            transform.position = animator.rootPosition;
 
-    //     if (rotateRoot)
-    //         transform.Rotate(0, x * rotationBoost, 0);
-    //     else
-    //         transform.rotation = animator.rootRotation;
-    // }
+        if (rotateRoot)
+            transform.Rotate(0, x * rotationBoost, 0);
+        else
+            transform.rotation = animator.rootRotation;
+    }
 
 }
