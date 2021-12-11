@@ -49,7 +49,6 @@ public class IKFootHandStart : MonoBehaviour
         LF_Helper.localPosition = LFootHelperOffset;
         RF_Helper.parent = rightFoot;
         RF_Helper.localPosition = RFootHelperOffset;
-
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -86,7 +85,18 @@ public class IKFootHandStart : MonoBehaviour
         //Adjust anim.bodyPosition
         if (MoveCOM)
         {
-            ;
+            float lOffsetPos = lfPos.y - transform.position.y;
+            float rOffsetPos = rfPos.y - transform.position.y;
+            float COMFraction = Mathf.Min(Mathf.Abs(lOffsetPos - rOffsetPos), maxOffsetBetweenFeet);
+            COMFraction *= maxDistanceFromCOM;
+
+            // Idle pose has right foot behind left
+            if (lOffsetPos < rOffsetPos)
+            {
+                COMFraction *= -1;
+            }
+
+            anim.bodyPosition = anim.bodyPosition + transform.forward * COMFraction;
         }
     }
 
