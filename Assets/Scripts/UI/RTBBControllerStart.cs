@@ -13,11 +13,8 @@ public class RTBBControllerStart : MonoBehaviour {
     [SerializeField] private RectTransform player1, player2;
     [SerializeField] private RectTransform radar;
 
-    private void Start()
+    void Update()
     {
-    }
-
-    void Update() {
         h1 = Input.GetAxis(H1AxisName) * Time.deltaTime * Speed;
         v1 = Input.GetAxis(V1AxisName) * Time.deltaTime * Speed;
         h2 = Input.GetAxis(H2AxisName) * Time.deltaTime * Speed;
