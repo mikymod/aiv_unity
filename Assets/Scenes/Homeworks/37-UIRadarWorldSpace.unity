@@ -1739,7 +1739,6 @@ GameObject:
   - component: {fileID: 1987930094}
   - component: {fileID: 1987930093}
   - component: {fileID: 1987930092}
-  - component: {fileID: 1987930091}
   - component: {fileID: 1987930096}
   m_Layer: 0
   m_Name: Canvas
@@ -1748,26 +1747,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1987930091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1987930090}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: accbc598350fd2445b93855a828f3195, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 100
-  H1AxisName: Horizontal
-  V1AxisName: Vertical
-  H2AxisName: Horizontal2
-  V2AxisName: Vertical2
-  player1: {fileID: 1964579096}
-  player2: {fileID: 1093404885}
-  radar: {fileID: 930050314}
 --- !u!114 &1987930092
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ public class RTBBController : MonoBehaviour
         v2 = Input.GetAxis(V2AxisName) * Time.deltaTime * Speed;
 
         //Move Players
-        player1.transform.position += new Vector3(h1, v1);
-        player2.transform.position += new Vector3(h2, v2);
+        player1.anchoredPosition += new Vector2(h1, v1);
+        player2.anchoredPosition += new Vector2(h2, v2);
 
         // // Clamp
         // var p1ClampedX = Mathf.Clamp(player1.transform.position.x, -40f, 40f);
@@ -43,7 +43,11 @@ public class RTBBController : MonoBehaviour
         offsetMinY = Mathf.Clamp(player1.localPosition.y < player2.localPosition.y ? player1.localPosition.y : player2.localPosition.y, -330, 160f);
         offsetMaxX = Mathf.Clamp(player1.localPosition.x > player2.localPosition.x ? player1.localPosition.x : player2.localPosition.x, -330f, 330f);
         offsetMaxY = Mathf.Clamp(player1.localPosition.y > player2.localPosition.y ? player1.localPosition.y : player2.localPosition.y, -330f, 160f);
-        
+
+        offsetMinX = Mathf.Clamp(offsetMinX, -330f, -20f);
+        offsetMinY = Mathf.Clamp(offsetMinY, -330f, -20f);
+        offsetMaxX = Mathf.Clamp(offsetMaxX, 20f, 330f);
+        offsetMaxY = Mathf.Clamp(offsetMaxY, 20f, 200f);
         
         radar.offsetMin = new Vector2(offsetMinX, offsetMinY) - new Vector2(player1.rect.width / 2f, player1.rect.height / 2f);
         radar.offsetMax = new Vector2(offsetMaxX, offsetMaxY) + new Vector2(player2.rect.width / 2f, player2.rect.height / 2f);
