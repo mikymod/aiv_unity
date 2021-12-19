@@ -14,12 +14,12 @@ public class CustomUnityEvent : MonoBehaviour {
     public bool changeWithAStringPersistentListener;
     public bool removePersistentListener;
     public int removePListenerIndex = 0;
-    public int persistentListenerToChangeIndex = 0;
     public string DynamicStringParameter;
     //This is how you get the classic UnityEvent Inspector
     public myUnityEvent OnClickString;
     public UnityEvent OnClick; //If there are no parameters, use UnityEvent type
 
+    int persistentListenerToChangeIndex = 0;
 
     UnityAction<string> UActionString;
     UnityAction<string> UActionString2;
@@ -70,7 +70,7 @@ public class CustomUnityEvent : MonoBehaviour {
                 {
                     Debug.Log(i + " - " + OnClickString.GetPersistentMethodName(i));
                     //We can disable this Persistent listener
-                    OnClickString.SetPersistentListenerState(i, UnityEventCallState.Off);
+                    //OnRightClickString.SetPersistentListenerState(i, UnityEventCallState.Off);
                 }
             }
         }
@@ -88,7 +88,7 @@ public class CustomUnityEvent : MonoBehaviour {
         if (changeWithAStringPersistentListener)
         {
             changeWithAStringPersistentListener = false;
-            UnityEventTools.RegisterStringPersistentListener(OnClickString, persistentListenerToChangeIndex,
+            UnityEventTools.RegisterStringPersistentListener(OnClickString, persistentListenerToChangeIndex++,
                 UActionString2, "stringParameter2");
 
         }
