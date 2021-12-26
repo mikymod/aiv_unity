@@ -2,6 +2,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using UnityEngine.Events;
 
 public class DropDownListTest: MonoBehaviour
 {
@@ -9,6 +11,9 @@ public class DropDownListTest: MonoBehaviour
 	List<string> dropOptions = new List<string> { "Option 1", "Option 2"};
 	//This is the Dropdown
 	public TMP_Dropdown dropdown;
+
+	[Serializable] public class StringEvent : UnityEvent <string> {}
+	public StringEvent strEvent;
 
 	void Start()
 	{
@@ -22,4 +27,9 @@ public class DropDownListTest: MonoBehaviour
     {
         Debug.Log("DropDown new Value: "+newVal);
     }
+
+	public void OnDio(string madonna)
+	{
+
+	}
 }
