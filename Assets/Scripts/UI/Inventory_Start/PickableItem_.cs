@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickableItem_ : MonoBehaviour {
-	//TODO
-    //One public Item field
+public class PickableItem_ : MonoBehaviour
+{
+    public Item_ item;
 }
