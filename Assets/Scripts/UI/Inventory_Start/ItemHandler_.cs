@@ -28,9 +28,10 @@ public class ItemHandler_ : MonoBehaviour {
     //  - Istantiate the Item we want to remove with position near the player and itemsOnStageRootT as parent
     public void OnItemRemovedCallback(Item_ item)
     {
-        Instantiate(
+        var offset = Random.onUnitSphere;
+        var go = Instantiate(
             Resources.Load<GameObject>(item.objPath),
-            transform.position + Random.onUnitSphere * 2f,
+            transform.position + new Vector3(offset.x, 1, offset.z),
             Quaternion.identity,
             itemsOnStageRootT
         );

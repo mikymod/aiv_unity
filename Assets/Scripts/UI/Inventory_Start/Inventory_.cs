@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,17 +17,16 @@ public class Inventory_ : MonoBehaviour {
 	private int itemsCollected = 0;
     private List<CellItem_> cellItems;
 
+    private Dictionary<Item_, int> itemsCount;
+
     private void Awake()
     {
-        cellItems = new List<CellItem_>(inventorySize);    
+        cellItems = new List<CellItem_>(inventorySize);
+        itemsCount = new Dictionary<Item_, int>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        //- Subscribe to events
-        EventMng_.ItemPicked.AddListener(OnItemPickedCallback);
-        EventMng_.ItemRemoved.AddListener(OnItemRemovedCallback);
-
         //- Istantiate cellItemPrefab inventorySize times, taking this as the root parent
         for (int i = 0; i < inventorySize; i++)
         {
@@ -40,11 +39,18 @@ public class Inventory_ : MonoBehaviour {
         }
     }
 
+    private void OnEnable()
+    {
+        //- Subscribe to events
+        EventMng_.ItemPicked.AddListener(OnItemPickedCallback);
+        EventMng_.ItemRemoved.AddListener(OnItemRemovedCallback);
+    }
+
     //TODO UnSubscribe to events
     private void OnDisable()
     {
         EventMng_.ItemPicked.RemoveListener(OnItemPickedCallback);
-        EventMng_.ItemRemoved.RemoveListener(OnItemRemovedCallback);        
+        EventMng_.ItemRemoved.RemoveListener(OnItemRemovedCallback);
     }
 
     /*
@@ -67,19 +73,27 @@ public class Inventory_ : MonoBehaviour {
             return;
         }
 
-        if (ItemAlreadyPresent(item))
+        if (!cellItems.Any<CellItem_>((i) => i.ItemInThisCell != null && i.ItemInThisCell.Equals(item)))
         {
-            return;
+            var firstCellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell == null);
+            firstCellItem.enabled = true;
+            firstCellItem.ItemInThisCell = item;
+
+            var image = Resources.Load<Sprite>(item.spritePath);
+            firstCellItem.SetSprite(image);
+            firstCellItem.SetCount(1);
+
+            itemsCollected++;
+        }
+        else
+        {
+            var cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell.Equals(item));
+            if (cellItem)
+            {
+                cellItem.IncreaseCount();
+            }
         }
 
-        var firstCellItem = FirstItemEmpty();
-        firstCellItem.enabled = true;
-        firstCellItem.ItemInThisCell = item;
-
-        var image = Resources.Load<Sprite>(item.spritePath);
-        firstCellItem.SetSprite(image);
-
-        itemsCollected++;
         Destroy(go.transform.parent.gameObject);
     }
 
@@ -92,16 +106,19 @@ public class Inventory_ : MonoBehaviour {
      * */
     private void OnItemRemovedCallback(Item_ item)
     {
-        foreach (var cellItem in cellItems)
+        CellItem_ cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell == item);
+        if (cellItem)
         {
-            if (cellItem.ItemInThisCell.spritePath == item.spritePath)
+            if (cellItem.Count == 1)
             {
                 cellItem.enabled = false;
                 cellItem.ItemInThisCell = null;
                 cellItem.SetSprite(null);
-                itemsCollected--;
-                break;
             }
+
+            cellItem.DecreaseCount();
+            
+            itemsCollected--;
         }
     }
 
@@ -112,11 +129,6 @@ public class Inventory_ : MonoBehaviour {
 
     bool ItemAlreadyPresent(Item_ item)
     {
-        return cellItems.Any<CellItem_>((i) => i.ItemInThisCell != null && i.ItemInThisCell.spritePath == item.spritePath);
-    }
-
-    CellItem_ FirstItemEmpty()
-    {
-        return cellItems.First<CellItem_>((i) => i.ItemInThisCell == null);
+        return cellItems.Any<CellItem_>((i) => i.ItemInThisCell.Equals(item));
     }
 }
