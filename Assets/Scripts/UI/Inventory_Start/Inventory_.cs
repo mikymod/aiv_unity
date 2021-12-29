@@ -14,15 +14,16 @@ using System.Linq;
 public class Inventory_ : MonoBehaviour {
 	public int inventorySize = 3;
 	public GameObject cellItemPrefab;
-	private int itemsCollected = 0;
+	// private int itemsCollected = 0;
     private List<CellItem_> cellItems;
 
-    private Dictionary<Item_, int> itemsCount;
+    private Dictionary<Item_, int> itemsCollected;
+    public static UnityEvent<Dictionary<Item_, int>> ItemsCollectionUpdate = new UnityEvent<Dictionary<Item_, int>>(); 
 
     private void Awake()
     {
         cellItems = new List<CellItem_>(inventorySize);
-        itemsCount = new Dictionary<Item_, int>();
+        itemsCollected = new Dictionary<Item_, int>();
     }
 
     private void Start()
@@ -83,10 +84,12 @@ public class Inventory_ : MonoBehaviour {
             firstCellItem.SetSprite(image);
             firstCellItem.SetCount(1);
 
-            itemsCollected++;
+            itemsCollected.Add(item, 1);
         }
         else
         {
+            itemsCollected[item]++;
+
             var cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell.Equals(item));
             if (cellItem)
             {
@@ -95,6 +98,8 @@ public class Inventory_ : MonoBehaviour {
         }
 
         Destroy(go.transform.parent.gameObject);
+
+        ItemsCollectionUpdate.Invoke(itemsCollected);
     }
 
     /*
@@ -109,22 +114,25 @@ public class Inventory_ : MonoBehaviour {
         CellItem_ cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell == item);
         if (cellItem)
         {
+            itemsCollected[item]--;
+            ItemsCollectionUpdate.Invoke(itemsCollected);
+
             if (cellItem.Count == 1)
             {
                 cellItem.enabled = false;
                 cellItem.ItemInThisCell = null;
                 cellItem.SetSprite(null);
+                itemsCollected.Remove(item);
             }
 
             cellItem.DecreaseCount();
-            
-            itemsCollected--;
         }
+
     }
 
     bool CanGrabItem()
     {
-		return itemsCollected < inventorySize;
+		return itemsCollected.Count < inventorySize;
 	}
 
     bool ItemAlreadyPresent(Item_ item)

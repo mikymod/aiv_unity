@@ -31,7 +31,7 @@ public class ItemHandler_ : MonoBehaviour {
         var offset = Random.onUnitSphere;
         var go = Instantiate(
             Resources.Load<GameObject>(item.objPath),
-            transform.position + new Vector3(offset.x, 1, offset.z),
+            transform.position + new Vector3(offset.x + 0.5f, 1, offset.z + 0.5f),
             Quaternion.identity,
             itemsOnStageRootT
         );
