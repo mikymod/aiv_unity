@@ -6,15 +6,35 @@ using UnityEngine;
 public class UIGraphValuesProviderStart : MonoBehaviour
 {
     public UIGraphStart UIGraphStartObj;
+    
     public bool UpdateValues;
-    public float[] Values;
+    private List<float> Values = new List<float>();
+
+    public int numSteps = 100;
+    private int stepsCount = 0;
+
+    public float updateTime = 1f;
+    private float updateTimer = 0;
 
     void Update()
     {
+        if (stepsCount > numSteps)
+        {
+            return;
+        }
+
+        updateTimer += Time.deltaTime;
+        UpdateValues = updateTimer > updateTime;
+
         if (UpdateValues)
         {
+            updateTimer = 0f;
             UpdateValues = false;
-            UIGraphStartObj.UpdateGraphValues(Values);
+
+            Values.Add(PopulateMeshPerson.sickValue);
+            UIGraphStartObj.UpdateGraphValues(Values.ToArray());
+
+            stepsCount++;
         }
     }
 }
