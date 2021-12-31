@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 3438294037293816431}
   - component: {fileID: 3969844345239539658}
   - component: {fileID: 6246354528806195123}
+  - component: {fileID: 2329727779478600735}
   m_Layer: 0
   m_Name: dobj
   m_TagString: Untagged
@@ -367,6 +368,25 @@ MonoBehaviour:
     objPath: diamond
   text: {fileID: 0}
   quantity: 0
+--- !u!95 &2329727779478600735
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895361791671277056}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6aac19f039adb38488d718bf41884834, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4895361791671277060
 GameObject:
   m_ObjectHideFlags: 0

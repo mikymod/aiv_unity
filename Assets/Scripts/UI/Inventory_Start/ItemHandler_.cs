@@ -39,6 +39,7 @@ public class ItemHandler_ : MonoBehaviour {
             );
 
             go.GetComponentInChildren<PickableItem_>().quantity = 1;
+            go.GetComponentInChildren<Animator>().SetTrigger("Spawn");
         }        
     }
 
