@@ -43,9 +43,9 @@ public class CellItem_ : MonoBehaviour, IPointerClickHandler
         text.text = this.count.ToString();
     }
 
-    public void IncreaseCount()
+    public void IncreaseCount(int quantity)
     {
-        count++;
+        count += quantity;
         text.text = count.ToString();
     }
 
@@ -55,13 +55,13 @@ public class CellItem_ : MonoBehaviour, IPointerClickHandler
         text.text = count.ToString();
     }
 
-    public void RemoveMyself()
+    public void RemoveMyself(bool removeAll)
     {
-        EventMng_.ItemRemoved.Invoke(ItemInThisCell);
+        EventMng_.ItemRemoved.Invoke(ItemInThisCell, removeAll ? count : 1);
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        RemoveMyself();
+        RemoveMyself(eventData.button == PointerEventData.InputButton.Right ? true : false);
     }
 }

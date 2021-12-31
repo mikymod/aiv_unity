@@ -26,15 +26,20 @@ public class ItemHandler_ : MonoBehaviour {
 
     //OnItemRemovedCallback
     //  - Istantiate the Item we want to remove with position near the player and itemsOnStageRootT as parent
-    public void OnItemRemovedCallback(Item_ item)
+    public void OnItemRemovedCallback(Item_ item, int quantity)
     {
-        var offset = Random.onUnitSphere;
-        var go = Instantiate(
-            Resources.Load<GameObject>(item.objPath),
-            transform.position + new Vector3(offset.x + 0.5f, 1, offset.z + 0.5f),
-            Quaternion.identity,
-            itemsOnStageRootT
-        );
+        for (int i = 0; i < quantity; i++)
+        {
+            var offset = Random.onUnitSphere;
+            var go = Instantiate(
+                Resources.Load<GameObject>(item.objPath),
+                transform.position + new Vector3(offset.x + 1f, 1, offset.z + 1f),
+                Quaternion.identity,
+                itemsOnStageRootT
+            );
+
+            go.GetComponentInChildren<PickableItem_>().quantity = 1;
+        }        
     }
 
     //React to collision enter
@@ -45,7 +50,7 @@ public class ItemHandler_ : MonoBehaviour {
         var pickableComp = other.gameObject.GetComponent<PickableItem_>();
         if (pickableComp != null)
         {
-            EventMng_.ItemPicked.Invoke(pickableComp.item, other.gameObject);
+            EventMng_.ItemPicked.Invoke(pickableComp.item, other.gameObject, pickableComp.quantity);
         }
     }
 }

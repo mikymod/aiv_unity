@@ -18,7 +18,7 @@ public class Inventory_ : MonoBehaviour {
     private List<CellItem_> cellItems;
 
     private Dictionary<Item_, int> itemsCollected;
-    public static UnityEvent<Dictionary<Item_, int>> ItemsCollectionUpdate = new UnityEvent<Dictionary<Item_, int>>(); 
+    // public static UnityEvent<Dictionary<Item_, int>> ItemsCollectionUpdate = new UnityEvent<Dictionary<Item_, int>>(); 
 
     private void Awake()
     {
@@ -67,9 +67,9 @@ public class Inventory_ : MonoBehaviour {
      *      - Destroy 3D Game object on the stage floor
      * - else return;  
      * */
-    private void OnItemPickedCallback(Item_ item, GameObject go)
+    private void OnItemPickedCallback(Item_ item, GameObject go, int quantity)
     {
-        if (!CanGrabItem())
+        if (!CanGrabItem(item))
         {
             return;
         }
@@ -82,9 +82,9 @@ public class Inventory_ : MonoBehaviour {
 
             var image = Resources.Load<Sprite>(item.spritePath);
             firstCellItem.SetSprite(image);
-            firstCellItem.SetCount(1);
+            firstCellItem.SetCount(quantity);
 
-            itemsCollected.Add(item, 1);
+            itemsCollected.Add(item, quantity);
         }
         else
         {
@@ -93,13 +93,11 @@ public class Inventory_ : MonoBehaviour {
             var cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell.Equals(item));
             if (cellItem)
             {
-                cellItem.IncreaseCount();
+                cellItem.IncreaseCount(quantity);
             }
         }
 
         Destroy(go.transform.parent.gameObject);
-
-        ItemsCollectionUpdate.Invoke(itemsCollected);
     }
 
     /*
@@ -109,30 +107,31 @@ public class Inventory_ : MonoBehaviour {
      * - Set CellItem.ItemInThisCell to null
      * - itemsCollected--;
      * */
-    private void OnItemRemovedCallback(Item_ item)
+    private void OnItemRemovedCallback(Item_ item, int quantity)
     {
         CellItem_ cellItem = cellItems.First<CellItem_>((i) => i.ItemInThisCell == item);
         if (cellItem)
         {
-            itemsCollected[item]--;
-            ItemsCollectionUpdate.Invoke(itemsCollected);
-
-            if (cellItem.Count == 1)
+            itemsCollected[item] -= quantity;
+            for (int i = 0; i < quantity; i++)
             {
-                cellItem.enabled = false;
-                cellItem.ItemInThisCell = null;
-                cellItem.SetSprite(null);
-                itemsCollected.Remove(item);
-            }
+                if (cellItem.Count == 1)
+                {
+                    cellItem.enabled = false;
+                    cellItem.ItemInThisCell = null;
+                    cellItem.SetSprite(null);
+                    itemsCollected.Remove(item);
+                }
 
-            cellItem.DecreaseCount();
+                cellItem.DecreaseCount();
+            }           
         }
 
     }
 
-    bool CanGrabItem()
+    bool CanGrabItem(Item_ item)
     {
-		return itemsCollected.Count < inventorySize;
+		return itemsCollected.Count < inventorySize || ItemAlreadyPresent(item);
 	}
 
     bool ItemAlreadyPresent(Item_ item)

@@ -31,12 +31,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1530278628}
-  m_Father: {fileID: 7844552806481164796}
+  m_Father: {fileID: 7844552806481164798}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.84000003}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &262404779
@@ -267,10 +267,9 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 262404776}
+  m_Children: []
   m_Father: {fileID: 7844552806481164798}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7844552806482459102
 MeshFilter:
@@ -367,6 +366,7 @@ MonoBehaviour:
     spritePath: coin2d
     objPath: coin
   text: {fileID: 1530278629}
+  quantity: 0
 --- !u!1 &7844552806481389022
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +394,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.242, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 262404776}
   - {fileID: 7844552806481164796}
   m_Father: {fileID: 0}
   m_RootOrder: 0

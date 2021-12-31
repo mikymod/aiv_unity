@@ -31,12 +31,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1403208142}
-  m_Father: {fileID: 4749192670345831372}
+  m_Father: {fileID: 4749192670345831374}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &521750258
@@ -267,10 +267,9 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 521750255}
+  m_Children: []
   m_Father: {fileID: 4749192670345831374}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4749192670347158508
 MeshFilter:
@@ -336,7 +335,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!136 &6042362042226702572
 CapsuleCollider:
@@ -368,6 +367,7 @@ MonoBehaviour:
     spritePath: hammer2d
     objPath: hammer
   text: {fileID: 0}
+  quantity: 0
 --- !u!1 &4749192670346067950
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +395,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 521750255}
   - {fileID: 4749192670345831372}
   m_Father: {fileID: 0}
   m_RootOrder: 0

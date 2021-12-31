@@ -31,12 +31,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1490492397}
-  m_Father: {fileID: 3572214174236174805}
+  m_Father: {fileID: 3572214174236174807}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.5}
+  m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 1, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &642944308
@@ -267,10 +267,9 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 642944305}
+  m_Children: []
   m_Father: {fileID: 3572214174236174807}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3572214174232750583
 MeshFilter:
@@ -336,7 +335,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!136 &4364827386666061173
 CapsuleCollider:
@@ -368,6 +367,7 @@ MonoBehaviour:
     spritePath: food2d
     objPath: food
   text: {fileID: 0}
+  quantity: 0
 --- !u!1 &3572214174235882999
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,6 +395,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 642944305}
   - {fileID: 3572214174236174805}
   m_Father: {fileID: 0}
   m_RootOrder: 0
