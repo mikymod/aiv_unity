@@ -74,8 +74,6 @@ public class NavAgentInfo : MonoBehaviour
         bool isOnOffMeshLink = navAgent.isOnOffMeshLink;
         bool pathPending = navAgent.pathPending;
         bool isPathStale = navAgent.isPathStale;
-        //NB: If destination is outside NavMesh area, navAgent.pathStatus will be PathComplete.
-        //  If we calculate it with agent.CalculatePath() and see newPath.status, it will be PathInvalid
         NavMeshPathStatus pathStatus = navAgent.pathStatus;
         float remainingDistance = navAgent.remainingDistance;
         info = string.Format("NavMeshAgentInfo" +
