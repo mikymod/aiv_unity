@@ -15,8 +15,7 @@ public class NavClick : MonoBehaviour {
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
 			Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
-			if (Physics.Raycast (ray.origin, ray.direction, out hitInfo))
-			{
+			if (Physics.Raycast (ray.origin, ray.direction, out hitInfo)) {
 				agent.destination = hitInfo.point;
                 if(hitInfoPoint != null)
     				hitInfoPoint.position = hitInfo.point;

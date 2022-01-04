@@ -7,7 +7,7 @@ public class  cameraObjOffset: MonoBehaviour {
 	public Transform parentObj;
 	public Vector3 offset;
 
-	void Update () {
+	void LateUpdate () {
         if(parentObj)
 		transform.position = parentObj.position + offset;
 	}
