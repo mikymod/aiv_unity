@@ -37,6 +37,15 @@ public class IKFootHandStart : MonoBehaviour
     Transform hips;
     bool isFalling;
 
+    [Header("Hand IK")]
+    public bool handIK;
+    public Transform leftShoulder;
+    public Transform rightShoulder;
+    public float pushingDistanceThreshold;
+    public Transform LH_Helper, RH_Helper;
+ 	public LayerMask collisionMask = 0;
+
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -87,7 +96,7 @@ public class IKFootHandStart : MonoBehaviour
         {
             float lOffsetPos = lfPos.y - transform.position.y;
             float rOffsetPos = rfPos.y - transform.position.y;
-            float COMFraction = Mathf.Min(Mathf.Abs(lOffsetPos - rOffsetPos), maxOffsetBetweenFeet);
+            float COMFraction = Mathf.Min(Mathf.Abs(lOffsetPos - rOffsetPos), maxOffsetBetweenFeet) / maxOffsetBetweenFeet;
             COMFraction *= maxDistanceFromCOM;
 
             // Idle pose has right foot behind left
@@ -98,13 +107,40 @@ public class IKFootHandStart : MonoBehaviour
 
             anim.bodyPosition = anim.bodyPosition + transform.forward * COMFraction;
         }
+
+        if (handIK)
+        {   
+            RaycastHit leftHit = new RaycastHit();
+            var leftCollision = Physics.Raycast(leftShoulder.position, transform.forward, out leftHit, pushingDistanceThreshold, collisionMask);
+            Debug.DrawRay(leftShoulder.position, transform.forward, Color.white);
+            LH_Helper.position = leftShoulder.position + transform.forward * pushingDistanceThreshold;
+
+            RaycastHit rightHit = new RaycastHit();
+            var rightCollision = Physics.Raycast(rightShoulder.position, transform.forward, out rightHit, pushingDistanceThreshold, collisionMask);
+            Debug.DrawRay(rightShoulder.position, transform.forward, Color.white);
+            RH_Helper.position = rightShoulder.position + transform.forward * pushingDistanceThreshold;
+
+            if (leftCollision && rightCollision)
+            {
+                anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f - leftHit.distance);
+                anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f - rightHit.distance);
+                anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHit.point);
+                anim.SetIKPosition(AvatarIKGoal.RightHand, rightHit.point);
+
+                anim.SetBool("Pushing", true);
+            }
+            else
+            {
+                anim.SetBool("Pushing", false);
+            }
+        }
     }
 
     void FindFootPosition(Transform t, Transform t_helper, ref Vector3 targetPosition, ref Quaternion targetRotation)
     {
         RaycastHit hit;
         Vector3 origin = t.position + Vector3.up * FootRayCastOffset;
-        Debug.DrawRay(origin, Vector3.down * 2, Color.yellow);
+        Debug.DrawRay(origin, Vector3.down, Color.yellow);
 
         if (Physics.Raycast(origin, Vector3.down, out hit, 1, FeetRaycastMask))
         {
@@ -127,18 +163,20 @@ public class IKFootHandStart : MonoBehaviour
         Debug.DrawRay(origin, Vector3.down * 2, Color.yellow);
         if (Physics.Raycast(origin, Vector3.down, out hit, 10, FeetRaycastMask))
         {
-            isFalling = Vector3.Distance(hit.point, transform.position) > 2;
+            if (Vector3.Distance(hit.point, transform.position) > 2)
+            {
+                isFalling = true;
+            }
+            else
+            {
+                isFalling = false;
+            }
 
             transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
         }
         else
         {
-            isFalling = false;
+            isFalling = true;
         }
-    }
-
-    void Update()
-    {
-        //Update L/RF_HitDebug.position
     }
 }
